@@ -1,5 +1,10 @@
+import Login from "../auth/Login";
 function App() {
-  return <div>init</div>;
+  return (
+    <>
+      <Login />
+    </>
+  );
 }
 
 export default App;
