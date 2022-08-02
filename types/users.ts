@@ -6,3 +6,5 @@ export interface User {
 }
 
 export type UserInput = Pick<User, "email" | "password">;
+
+export type SignUpInput = UserInput & { passwordCheck: string };

@@ -1,6 +1,8 @@
 import { useEffect, useState, FormEvent } from "react";
 import useInput from "../hooks/useInput";
 import { UserInput } from "../types/users";
+import Input from "../components/Input";
+import { requestLogin } from "../api/authAPI";
 
 const Login = () => {
   const [valid, setValid] = useState(false);
@@ -13,33 +15,7 @@ const Login = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const [email, password] = [e.target[0].value, e.target[1].value];
-
-    if (!validCheck({ email, password })) {
-      alert("잘못된 양식");
-      return;
-    }
-
-    const response = await fetch("http://localhost:8080/users/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email, password })
-    });
-
-    if (!response.ok) {
-      const { details } = await response.json();
-      alert(details);
-      return;
-    }
-    const { message, token } = await response.json();
-    alert(message);
-    localStorage.setItem("token", token);
-
-    // 리다이렉팅
+    requestLogin({ email: email.value, password: password.value });
   };
 
   useEffect(() =>
@@ -48,14 +24,12 @@ const Login = () => {
 
   return (
     <>
-      <h1>로그인</h1>
+      <h1>Login</h1>
       <form name="login" onSubmit={handleSubmit}>
-        <label htmlFor="email">이메일</label>
-        <input type="email" placeholder="이메일 입력" {...email} required />
-        <label htmlFor="password">비밀번호</label>
-        <input type="password" placeholder="8자 이상" {...password} required />
+        <Input type="email" {...email} required />
+        <Input type="password" {...password} required />
         <button type="submit" disabled={!valid}>
-          로그인
+          Login
         </button>
       </form>
     </>
