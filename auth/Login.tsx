@@ -1,21 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent } from "react";
 import useInput from "../hooks/useInput";
+import { UserInput } from "../types/users";
 
 const Login = () => {
   const [valid, setValid] = useState(false);
   const email = useInput("");
   const password = useInput("");
 
-  const validCheck = (email, passwrd) => {
-    return /@/.test(email) && /\./.test(email) && 8 <= passwrd.length;
+  const validCheck = ({ email, password }: UserInput) => {
+    return /@/.test(email) && /\./.test(email) && 8 <= password.length;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const [email, password] = [e.target[0].value, e.target[1].value];
 
-    if (!validCheck(email, password)) {
+    if (!validCheck({ email, password })) {
       alert("잘못된 양식");
       return;
     }
@@ -24,9 +25,9 @@ const Login = () => {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password })
     });
 
     if (!response.ok) {
@@ -41,7 +42,9 @@ const Login = () => {
     // 리다이렉팅
   };
 
-  useEffect(() => setValid(validCheck(email.value, password.value)));
+  useEffect(() =>
+    setValid(validCheck({ email: email.value, password: password.value }))
+  );
 
   return (
     <>
