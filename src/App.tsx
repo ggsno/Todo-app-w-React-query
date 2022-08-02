@@ -7,20 +7,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "../utils/PrivateRoute";
 
 function App() {
-  const token = localStorage.getItem("token");
-  if (!token)
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<PrivateRoute />}>
-            <Route path="/" element={<Todo />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/" element={<Todo />} />
+        </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;
