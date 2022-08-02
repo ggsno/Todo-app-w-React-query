@@ -1,21 +1,26 @@
-import Login from "../auth/Login";
-import SignUp from "../auth/SignUp";
-import { useState } from "react";
-
-const PageIndex = {
-  MAIN: "MAIN",
-  LOGIN: "LOGIN",
-  SIGNUP: "SIGNUP"
-};
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import NotFound from "./pages/NotFound";
+import React from "react";
+import Todo from "./pages/Todo";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PrivateRoute from "../utils/PrivateRoute";
 
 function App() {
-  const [page, setPage] = useState(0);
-  return (
-    <>
-      <Login />
-      <SignUp />
-    </>
-  );
+  const token = localStorage.getItem("token");
+  if (!token)
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PrivateRoute />}>
+            <Route path="/" element={<Todo />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    );
 }
 
 export default App;

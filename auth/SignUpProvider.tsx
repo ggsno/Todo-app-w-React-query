@@ -1,10 +1,9 @@
 import { useEffect, useState, FormEvent } from "react";
 import useInput from "../hooks/useInput";
 import { SignUpInput } from "../types/users";
-import Input from "../components/Input";
 import { requestSignUp } from "../api/authAPI";
 
-const SignUp = () => {
+const SignUpProvider = () => {
   const [valid, setValid] = useState(false);
   const email = useInput("");
   const password = useInput("");
@@ -34,26 +33,6 @@ const SignUp = () => {
     )
   );
 
-  return (
-    <>
-      <h1>Sign Up</h1>
-      <form name="login" onSubmit={handleSubmit}>
-        <Input type="email" {...email} required />
-        <Input type="password" {...password} required />
-        <Input
-          type="password"
-          id="passwordCheck"
-          placeholder="password check"
-          {...passwordCheck}
-          required
-        />
-
-        <button type="submit" disabled={!valid}>
-          Sign Up
-        </button>
-      </form>
-    </>
-  );
+  return { handleSubmit, email, password, passwordCheck, valid };
 };
-
-export default SignUp;
+export default SignUpProvider;
