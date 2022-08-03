@@ -1,12 +1,12 @@
-import {ApiProps} from "../types/api";
+import { TodoApi } from "../types/api";
 
-const request = ({token, query, method}: ApiProps) => {
+const request = async ({ token, query, method }: TodoApi) => {
   try {
     const response = await fetch(`http://localhost:8080/${query}`, {
       method,
       headers: {
-        Authorization: token
-      }
+        Authorization: token,
+      },
     });
 
     if (!response.ok) {
@@ -21,16 +21,14 @@ const request = ({token, query, method}: ApiProps) => {
     alert(e);
     return null;
   }
-}
-
-const getTodos = async (token: string) => {
-  return request(token, "todos");
 };
 
-const createTodo = async (token: string) => {
-  try {
-    
-  }
-}
+const getTodos = (token: string) => {
+  return request({ token, query: "todos", method: "get" });
+};
 
-export { getTodos };
+const createTodo = (token: string) => {
+  return request({ token, query: "todos", method: "post" });
+};
+
+export { getTodos, createTodo };
