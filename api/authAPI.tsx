@@ -1,6 +1,7 @@
 import { UserInput } from "../types/users";
+import { AuthApi } from "../types/api";
 
-const request = async ({ email, password }: UserInput, query: string) => {
+const request = async ({ email, password, query }: AuthApi) => {
   try {
     const response = await fetch(`http://localhost:8080/users/${query}`, {
       method: "POST",
@@ -13,14 +14,12 @@ const request = async ({ email, password }: UserInput, query: string) => {
 
     if (!response.ok) {
       const { details } = await response.json();
-      alert(details);
       throw Error(details);
     }
 
     const { message, token } = await response.json();
-    alert(message);
-
     localStorage.setItem("token", token);
+    alert(message);
 
     return true;
   } catch (e) {
@@ -30,11 +29,11 @@ const request = async ({ email, password }: UserInput, query: string) => {
 };
 
 const requestLogin = (props: UserInput) => {
-  return request(props, "login");
+  return request({ ...props, query: "login" });
 };
 
 const requestSignUp = (props: UserInput) => {
-  return request(props, "create");
+  return request({ ...props, query: "create" });
 };
 
 export { requestLogin, requestSignUp };
