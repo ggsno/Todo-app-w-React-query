@@ -2,12 +2,14 @@ import { useEffect, useState, FormEvent } from "react";
 import useInput from "../hooks/useInput";
 import { SignUpInput } from "../types/users";
 import { requestSignUp } from "../api/authAPI";
+import { useNavigate } from "react-router";
 
 const SignUpProvider = () => {
   const [valid, setValid] = useState(false);
   const email = useInput("");
   const password = useInput("");
   const passwordCheck = useInput("");
+  const navigate = useNavigate();
 
   const validCheck = ({ email, password, passwordCheck }: SignUpInput) => {
     return (
@@ -20,7 +22,8 @@ const SignUpProvider = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    requestSignUp({ email: email.value, password: password.value });
+    if (requestSignUp({ email: email.value, password: password.value }))
+      navigate("/");
   };
 
   useEffect(() =>
