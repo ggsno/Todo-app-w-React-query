@@ -16,7 +16,7 @@ const LoginProvider = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (requestLogin({ email: email.value, password: password.value }))
+    if (await requestLogin({ email: email.value, password: password.value }))
       navigate("/");
   };
 
