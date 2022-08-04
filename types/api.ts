@@ -3,6 +3,7 @@ import { UserInput } from "./users";
 export interface ApiProps {
   query: string;
   method: string;
+  body?: string;
 }
 
 export type TodoApi = ApiProps & { token: string };

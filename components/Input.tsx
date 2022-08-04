@@ -2,10 +2,10 @@ import React from "react";
 import { ChangeEvent } from "react";
 
 interface inputType {
-  type: string;
+  type?: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  required: boolean;
+  required?: boolean;
   id?: string;
   placeholder?: string;
   labelName?: string;
