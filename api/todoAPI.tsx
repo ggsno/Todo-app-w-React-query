@@ -1,12 +1,14 @@
 import { TodoApi } from "../types/api";
 
-const request = async ({ token, query, method }: TodoApi) => {
+const request = async ({ token, query, method, body }: TodoApi) => {
   try {
-    const response = await fetch(`http://localhost:8080/${query}`, {
+    const response = await fetch(`http://localhost:8080/todos${query}`, {
       method,
       headers: {
         Authorization: token,
+        "Content-Type": "application/json"
       },
+      body
     });
 
     if (!response.ok) {
@@ -24,11 +26,23 @@ const request = async ({ token, query, method }: TodoApi) => {
 };
 
 const getTodos = (token: string) => {
-  return request({ token, query: "todos", method: "get" });
+  return request({ token, query: "", method: "GET" });
 };
 
-const createTodo = (token: string) => {
-  return request({ token, query: "todos", method: "post" });
+const getTodoById = (token: string, id: string) => {
+  return request({ token, query: `/${id}`, method: "GET" });
 };
 
-export { getTodos, createTodo };
+const createTodo = (token: string, body: string) => {
+  return request({ token, query: "", method: "POST", body });
+};
+
+const updateTodo = (token: string, body: string, id: string) => {
+  return request({ token, query: `/${id}`, method: "PUT", body });
+};
+
+const deleteTodo = (token: string, id: string) => {
+  return request({ token, query: `/${id}`, method: "DELETE" });
+};
+
+export { getTodos, getTodoById, createTodo, updateTodo, deleteTodo };
