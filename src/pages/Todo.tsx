@@ -5,7 +5,7 @@ import {
   deleteTodo,
   getTodoById
 } from "../../api/todoAPI";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { Todo as TodoType } from "../../types/todos";
 import Input from "../../components/Input";
 import useInput from "../../hooks/useInput";
@@ -48,7 +48,7 @@ const Todo = () => {
       setTodos(todos.filter(todo => todo.id !== id));
       if (selectedTodo!.id === id) {
         setSelectedTodo(null);
-        navigate("/");
+        setSearchParams({});
       }
     } catch {
       navigate("/login");
@@ -104,6 +104,7 @@ const Todo = () => {
             searchParams.get("id")!
           );
           setSelectedTodo(data);
+          console.log("!!");
         }
       } catch {
         navigate("/login");
@@ -115,12 +116,18 @@ const Todo = () => {
     (async () => {
       try {
         checkToken();
-        if (searchParams.get("id")) {
+        if (
+          searchParams.get("id") &&
+          todos.some(({ id }) => id === searchParams.get("id"))
+        ) {
           const data = await getTodoById(
             localStorage.getItem("token")!,
             searchParams.get("id")!
           );
           setSelectedTodo(data);
+        } else {
+          setSearchParams({});
+          setSelectedTodo(null);
         }
       } catch {
         navigate("/login");
@@ -150,9 +157,9 @@ const Todo = () => {
           )}
         </S.Wrapper>
         <S.Wrapper>
-          <h2>Todo Detail</h2>
+          <h2>Todo Details</h2>
           {!selectedTodo ? (
-            <p>Click Todo To See Detail</p>
+            <p>Click Todo To See Details</p>
           ) : (
             <>
               <h3>title</h3>
