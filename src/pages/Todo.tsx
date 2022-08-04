@@ -79,6 +79,11 @@ const Todo = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   const checkToken = () => {
     if (!localStorage.getItem("token")) {
       alert("Wrong access. Please log in again.");
@@ -175,6 +180,7 @@ const Todo = () => {
           <button onClick={handleAddTodo}>add todo</button>
         </S.Wrapper>
       </S.Container>
+      <button onClick={handleLogout}>logout</button>
     </>
   );
 };
