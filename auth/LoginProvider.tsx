@@ -14,7 +14,7 @@ const LoginProvider = () => {
     return /@/.test(email) && /\./.test(email) && 8 <= password.length;
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (await requestLogin({ email: email.value, password: password.value }))
       navigate("/");
@@ -24,7 +24,7 @@ const LoginProvider = () => {
     setValid(validCheck({ email: email.value, password: password.value }))
   );
 
-  return { handleSubmit, email, password, valid };
+  return { handleLogin, email, password, valid };
 };
 
 export default LoginProvider;

@@ -4,12 +4,12 @@ import LoginProvider from "../../auth/LoginProvider";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { handleSubmit, email, password, valid } = LoginProvider();
+  const { handleLogin, email, password, valid } = LoginProvider();
 
   return (
     <>
       <h1>Login</h1>
-      <form name="login" onSubmit={handleSubmit}>
+      <form name="login" onSubmit={handleLogin}>
         <Input type="email" {...email} required />
         <Input type="password" {...password} required />
         <button type="submit" disabled={!valid}>

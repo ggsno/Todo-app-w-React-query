@@ -1,59 +1,33 @@
 import React, { useState, useEffect } from "react";
-import {
-  getTodos,
-  createTodo,
-  deleteTodo,
-  getTodoById
-} from "../../api/todoAPI";
+import { getTodos, deleteTodo, getTodoById } from "../../api/todoAPI";
 import { useNavigate } from "react-router";
 import { Todo as TodoType } from "../../types/todos";
 import Input from "../../components/Input";
-import useInput from "../../hooks/useInput";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
+import LogoutProvider from "../../auth/LogoutProvider";
+import TodoAdd from "../../components/todo/TodoAdd";
+import TodoDelete from "../../components/todo/TodoDelete";
 
 const Todo = () => {
+  const { handleLogout } = LogoutProvider();
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedTodo, setSelectedTodo] = useState(null);
 
   const navigate = useNavigate();
-  const newTodoTitle = useInput("");
-  const newTodoContent = useInput("");
-  const handleAddTodo = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    try {
-      e.preventDefault();
-      checkToken();
-      const data = await createTodo(
-        localStorage.getItem("token")!,
-        JSON.stringify({
-          title: newTodoTitle.value,
-          content: newTodoContent.value
-        })
-      );
-      setTodos([...todos, data]);
-    } catch {
-      navigate("/login");
-    }
-  };
 
-  const handleDelete = async (e: any) => {
-    try {
-      e.preventDefault();
-      const id = e.target.value;
-      checkToken();
-      await deleteTodo(localStorage.getItem("token")!, id);
-      setTodos(todos.filter(todo => todo.id !== id));
-      if (selectedTodo!.id === id) {
-        setSelectedTodo(null);
-        setSearchParams({});
-      }
-    } catch {
-      navigate("/login");
-    }
-  };
+  const { handleAddTodo, newTodoTitle, newTodoContent } = TodoAdd({
+    todos,
+    setTodos
+  });
+
+  const { handleDelete } = TodoDelete({
+    todos,
+    setTodos,
+    selectedTodo,
+    setSelectedTodo
+  });
 
   const handleEdit = async (e: any) => {
     try {
@@ -77,11 +51,6 @@ const Todo = () => {
     } catch {
       navigate("/login");
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
   };
 
   const checkToken = () => {

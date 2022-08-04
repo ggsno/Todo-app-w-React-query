@@ -20,7 +20,7 @@ const SignUpProvider = () => {
     );
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (await requestSignUp({ email: email.value, password: password.value }))
       navigate("/");
@@ -31,11 +31,11 @@ const SignUpProvider = () => {
       validCheck({
         email: email.value,
         password: password.value,
-        passwordCheck: passwordCheck.value,
+        passwordCheck: passwordCheck.value
       })
     )
   );
 
-  return { handleSubmit, email, password, passwordCheck, valid };
+  return { handleSignup, email, password, passwordCheck, valid };
 };
 export default SignUpProvider;

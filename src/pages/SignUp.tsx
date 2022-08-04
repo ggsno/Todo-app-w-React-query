@@ -4,7 +4,7 @@ import SignUpProvider from "../../auth/SignUpProvider";
 
 const SignUp = () => {
   const {
-    handleSubmit,
+    handleSignup,
     email,
     password,
     passwordCheck,
@@ -13,7 +13,7 @@ const SignUp = () => {
   return (
     <>
       <h1>Sign Up</h1>
-      <form name="login" onSubmit={handleSubmit}>
+      <form name="signup" onSubmit={handleSignup}>
         <Input type="email" {...email} required />
         <Input type="password" {...password} required />
         <Input
