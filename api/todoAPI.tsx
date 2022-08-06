@@ -6,9 +6,9 @@ const request = async ({ token, query, method, body }: TodoApi) => {
       method,
       headers: {
         Authorization: token,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body
+      body,
     });
 
     if (!response.ok) {
@@ -25,24 +25,30 @@ const request = async ({ token, query, method, body }: TodoApi) => {
   }
 };
 
-const getTodos = (token: string) => {
+const fetchGetTodos = (token: string) => {
   return request({ token, query: "", method: "GET" });
 };
 
-const getTodoById = (token: string, id: string) => {
+const fetchGetTodoById = (token: string, id: string) => {
   return request({ token, query: `/${id}`, method: "GET" });
 };
 
-const createTodo = (token: string, body: string) => {
+const fetchCreateTodo = (token: string, body: string) => {
   return request({ token, query: "", method: "POST", body });
 };
 
-const updateTodo = (token: string, body: string, id: string) => {
+const fetchUpdateTodo = (token: string, body: string, id: string) => {
   return request({ token, query: `/${id}`, method: "PUT", body });
 };
 
-const deleteTodo = (token: string, id: string) => {
+const fetchDeleteTodo = (token: string, id: string) => {
   return request({ token, query: `/${id}`, method: "DELETE" });
 };
 
-export { getTodos, getTodoById, createTodo, updateTodo, deleteTodo };
+export {
+  fetchGetTodos,
+  fetchGetTodoById,
+  fetchCreateTodo,
+  fetchUpdateTodo,
+  fetchDeleteTodo,
+};

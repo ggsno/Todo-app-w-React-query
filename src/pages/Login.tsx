@@ -1,24 +1,12 @@
 import React from "react";
-import Input from "../../components/Input";
-import LoginProvider from "../../auth/LoginProvider";
-import { Link } from "react-router-dom";
+import Auth from "../../auth";
 
-const Login = () => {
-  const { handleSubmit, email, password, valid } = LoginProvider();
-
+const LoginPage = () => {
   return (
-    <>
-      <h1>Login</h1>
-      <form name="login" onSubmit={handleSubmit}>
-        <Input type="email" {...email} required />
-        <Input type="password" {...password} required />
-        <button type="submit" disabled={!valid}>
-          Login
-        </button>
-      </form>
-      <Link to="/signup">Sign Up</Link>
-    </>
+    <Auth>
+      <Auth.Login />
+    </Auth>
   );
 };
 
-export default Login;
+export default LoginPage;

@@ -1,4 +1,4 @@
-import { UserInput } from "../types/users";
+import { UserInput } from "../types/auth";
 import { AuthApi } from "../types/api";
 
 const request = async ({ email, password, query }: AuthApi) => {
@@ -7,9 +7,9 @@ const request = async ({ email, password, query }: AuthApi) => {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password }),
     });
 
     if (!response.ok) {
@@ -28,12 +28,12 @@ const request = async ({ email, password, query }: AuthApi) => {
   }
 };
 
-const requestLogin = (props: UserInput) => {
+const fetchLogin = (props: UserInput) => {
   return request({ ...props, query: "login" });
 };
 
-const requestSignUp = (props: UserInput) => {
+const fetchSignUp = (props: UserInput) => {
   return request({ ...props, query: "create" });
 };
 
-export { requestLogin, requestSignUp };
+export { fetchLogin, fetchSignUp };
