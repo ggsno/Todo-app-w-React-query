@@ -1,4 +1,4 @@
-import { UserInput } from "./users";
+import { UserInput } from "./auth";
 
 export interface ApiProps {
   query: string;

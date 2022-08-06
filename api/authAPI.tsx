@@ -1,4 +1,4 @@
-import { UserInput } from "../types/users";
+import { UserInput } from "../types/auth";
 import { AuthApi } from "../types/api";
 
 const request = async ({ email, password, query }: AuthApi) => {
