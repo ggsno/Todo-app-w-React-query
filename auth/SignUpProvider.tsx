@@ -1,17 +1,12 @@
-import { useEffect, useState, FormEvent } from "react";
-import useInput from "../hooks/useInput";
-import { SignUpInput } from "../types/users";
-import { requestSignUp } from "../api/authAPI";
+import { FormEvent } from "react";
+import { SignUpInput, UserInput } from "../types/users";
+import { fetchSignUp } from "../api/authAPI";
 import { useNavigate } from "react-router";
 
-const SignUpProvider = () => {
-  const [valid, setValid] = useState(false);
-  const email = useInput("");
-  const password = useInput("");
-  const passwordCheck = useInput("");
+const SignUpProvider = ({ email, password }: UserInput) => {
   const navigate = useNavigate();
 
-  const validCheck = ({ email, password, passwordCheck }: SignUpInput) => {
+  const checkValid = ({ email, password, passwordCheck }: SignUpInput) => {
     return (
       /@/.test(email) &&
       /\./.test(email) &&
@@ -22,20 +17,9 @@ const SignUpProvider = () => {
 
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (await requestSignUp({ email: email.value, password: password.value }))
-      navigate("/");
+    if (await fetchSignUp({ email, password })) navigate("/");
   };
 
-  useEffect(() =>
-    setValid(
-      validCheck({
-        email: email.value,
-        password: password.value,
-        passwordCheck: passwordCheck.value
-      })
-    )
-  );
-
-  return { handleSignup, email, password, passwordCheck, valid };
+  return { handleSignup, checkValid };
 };
 export default SignUpProvider;

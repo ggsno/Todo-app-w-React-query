@@ -1,30 +1,27 @@
-import { useEffect, useState, FormEvent } from "react";
-import useInput from "../hooks/useInput";
+import { FormEvent } from "react";
 import { UserInput } from "../types/users";
-import { requestLogin } from "../api/authAPI";
+import { fetchLogin } from "../api/authAPI";
 import { useNavigate } from "react-router";
 
-const LoginProvider = () => {
-  const [valid, setValid] = useState(false);
-  const email = useInput("");
-  const password = useInput("");
+const LoginProvider = ({ email, password }: UserInput) => {
   const navigate = useNavigate();
 
-  const validCheck = ({ email, password }: UserInput) => {
+  const checkValid = ({ email, password }: UserInput) => {
     return /@/.test(email) && /\./.test(email) && 8 <= password.length;
   };
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (await requestLogin({ email: email.value, password: password.value }))
+    if (
+      await fetchLogin({
+        email,
+        password,
+      })
+    )
       navigate("/");
   };
 
-  useEffect(() =>
-    setValid(validCheck({ email: email.value, password: password.value }))
-  );
-
-  return { handleLogin, email, password, valid };
+  return { handleLogin, checkValid };
 };
 
 export default LoginProvider;

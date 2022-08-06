@@ -1,5 +1,5 @@
 import checkToken from "../../utils/checkToken";
-import { deleteTodo } from "../../api/todoAPI";
+import { fetchDeleteTodo } from "../../api/todoAPI";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
 const TodoDelete = ({ todos, setTodos, selectedTodo, setSelectedTodo }) => {
@@ -10,8 +10,8 @@ const TodoDelete = ({ todos, setTodos, selectedTodo, setSelectedTodo }) => {
       e.preventDefault();
       const id = e.target.value;
       checkToken();
-      await deleteTodo(localStorage.getItem("token")!, id);
-      setTodos(todos.filter(todo => todo.id !== id));
+      await fetchDeleteTodo(localStorage.getItem("token")!, id);
+      setTodos(todos.filter((todo) => todo.id !== id));
       if (selectedTodo!.id === id) {
         setSelectedTodo(null);
         setSearchParams({});
