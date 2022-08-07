@@ -18,6 +18,10 @@ const Create = () => {
     try {
       e.preventDefault();
       checkToken();
+      if (!inputTitle.value || !inputContent.value) {
+        alert("Empty title or content");
+        return;
+      }
       const data = await fetchCreateTodo(
         localStorage.getItem("token")!,
         JSON.stringify({
