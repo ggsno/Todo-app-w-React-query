@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import {
   fetchDeleteTodo,
   fetchGetTodoById,
-  fetchGetTodos,
+  fetchGetTodos
 } from "../../api/todoAPI";
 import { useNavigate } from "react-router";
 import styled from "styled-components";

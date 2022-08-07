@@ -7,8 +7,8 @@ import checkToken from "../../utils/checkToken";
 import { useTodoContext } from "../useTodoContext";
 
 const Create = () => {
-  const newTodoTitle = useInput("");
-  const newTodoContent = useInput("");
+  const inputTitle = useInput("");
+  const inputContent = useInput("");
   const { todos, setTodos } = useTodoContext();
   const navigate = useNavigate();
 
@@ -21,11 +21,14 @@ const Create = () => {
       const data = await fetchCreateTodo(
         localStorage.getItem("token")!,
         JSON.stringify({
-          title: newTodoTitle.value,
-          content: newTodoContent.value,
+          title: inputTitle.value,
+          content: inputContent.value
         })
       );
+      if (!data) throw Error;
       setTodos([...todos, data]);
+      inputTitle.setValue("");
+      inputContent.setValue("");
     } catch {
       navigate("/login");
     }
@@ -34,8 +37,8 @@ const Create = () => {
   return (
     <>
       <h2>Add Todo</h2>
-      <Input id="newTodoTitle" placeholder="title" {...newTodoTitle} />
-      <Input id="newTodoContent" placeholder="content" {...newTodoContent} />
+      <Input id="newTodoTitle" placeholder="title" {...inputTitle} />
+      <Input id="newTodoContent" placeholder="content" {...inputContent} />
       <button onClick={handleCreate}>add todo</button>
     </>
   );

@@ -15,17 +15,6 @@ const Todo = ({ children }: { children: any }) => {
 
   const navigate = useNavigate();
 
-  const handleEdit = async (e: any) => {
-    try {
-      e.preventDefault();
-      const id = e.target.value;
-      checkToken();
-      // edit
-    } catch {
-      navigate("/login");
-    }
-  };
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -60,8 +49,7 @@ const Todo = ({ children }: { children: any }) => {
         todos,
         setTodos,
         selectedTodo,
-        setSelectedTodo,
-        handleEdit,
+        setSelectedTodo
       }}
     >
       <h1>Todo App</h1>

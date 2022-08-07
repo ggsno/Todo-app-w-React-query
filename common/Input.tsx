@@ -1,5 +1,6 @@
 import React from "react";
 import { ChangeEvent } from "react";
+import styled from "styled-components";
 
 interface inputType {
   type?: string;
@@ -20,10 +21,24 @@ const Input = (inputProps: inputType) => {
   } = inputProps;
   return (
     <>
-      <label htmlFor={id}>{labelName}</label>
-      <input id={id} placeholder={placeholder} {...props} />
+      <S.Label htmlFor={id}>{labelName}</S.Label>
+      <S.Input id={id} placeholder={placeholder} {...props} />
     </>
   );
 };
 
 export default Input;
+
+const S: any = {};
+
+S.Label = styled.label`
+  display: block;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+`;
+
+S.Input = styled.input`
+  display: block;
+  margin-bottom: 1rem;
+`;
