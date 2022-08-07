@@ -63,15 +63,15 @@ const List = () => {
 
   return (
     <>
-      <h2>Todos</h2>
+      <h2>Todo List</h2>
       {todos.length === 0 ? (
         <p>All Tasks Complete !</p>
       ) : (
         todos.map(({ title, id }: any) => (
           <S.Todo key={id}>
-            <p id={id} onClick={handleDetail}>
+            <S.Title id={id} onClick={handleDetail}>
               {title}
-            </p>
+            </S.Title>
             <button onClick={handleDelete} value={id}>
               delete
             </button>
@@ -88,7 +88,16 @@ const S: any = {};
 
 S.Todo = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 2rem;
   &:hover {
     cursor: pointer;
   }
+`;
+
+S.Title = styled.p`
+  width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

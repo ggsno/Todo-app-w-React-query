@@ -34,12 +34,18 @@ const Create = () => {
     }
   };
 
+  const handleReset = () => {
+    inputTitle.setValue("");
+    inputContent.setValue("");
+  };
+
   return (
     <>
-      <h2>Add Todo</h2>
+      <h2>Create Todo</h2>
       <Input id="newTodoTitle" placeholder="title" {...inputTitle} />
       <Input id="newTodoContent" placeholder="content" {...inputContent} />
-      <button onClick={handleCreate}>add todo</button>
+      <button onClick={handleCreate}>ok</button>
+      <button onClick={handleReset}>resest</button>
     </>
   );
 };
