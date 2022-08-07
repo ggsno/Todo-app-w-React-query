@@ -8,7 +8,6 @@ import useInput from "../../hooks/useInput";
 
 const Details = () => {
   const { selectedTodo, setSelectedTodo, todos, setTodos } = useTodoContext();
-  const [searchParams, setSearchParams] = useSearchParams();
   const [editMode, setEditMode] = useState(false);
   const inputTitle = useInput("");
   const inputContent = useInput("");
@@ -50,30 +49,6 @@ const Details = () => {
     inputTitle.setValue("");
     inputContent.setValue("");
   };
-
-  useEffect(() => {
-    (async () => {
-      try {
-        checkToken();
-        if (
-          searchParams.get("id") &&
-          todos.some(({ id }) => id === searchParams.get("id"))
-        ) {
-          const data = await fetchGetTodoById(
-            localStorage.getItem("token")!,
-            searchParams.get("id")!
-          );
-          setSelectedTodo(data);
-          setEditMode(false);
-        } else {
-          setSearchParams({});
-          setSelectedTodo(null);
-        }
-      } catch {
-        navigate("/login");
-      }
-    })();
-  }, [searchParams]);
 
   return (
     <>

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { fetchDeleteTodo, fetchGetTodoById } from "../api/todoAPI";
+import {
+  fetchDeleteTodo,
+  fetchGetTodoById,
+  fetchGetTodos
+} from "../api/todoAPI";
 import { useNavigate } from "react-router";
 import { Todo as TodoType } from "../types/todo";
 import styled from "styled-components";
@@ -24,9 +28,12 @@ const Todo = ({ children }: { children: any }) => {
     (async () => {
       try {
         checkToken();
+        const newTodo = await fetchGetTodos(localStorage.getItem("token")!);
+        if (newTodo === null) throw Error;
+        setTodos([...newTodo]);
         if (
           searchParams.get("id") &&
-          todos.some(({ id }) => id === searchParams.get("id"))
+          newTodo.some(({ id }: any) => id === searchParams.get("id"))
         ) {
           const data = await fetchGetTodoById(
             localStorage.getItem("token")!,

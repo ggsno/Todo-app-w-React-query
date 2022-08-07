@@ -12,8 +12,8 @@ import { useSearchParams } from "react-router-dom";
 
 const List = () => {
   const { todos, setTodos, selectedTodo, setSelectedTodo } = useTodoContext();
-
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const handleDelete = async (e: any) => {
     try {
@@ -44,22 +44,6 @@ const List = () => {
       navigate("/login");
     }
   };
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        checkToken();
-        const data = await fetchGetTodos(localStorage.getItem("token")!);
-        if (data === null) throw Error;
-        setTodos([...data]);
-        // infinite loop !!!
-        // console.log("render");
-      } catch {
-        navigate("/login");
-      }
-    })();
-  }, []);
 
   return (
     <>
