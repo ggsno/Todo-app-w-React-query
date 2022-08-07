@@ -43,7 +43,12 @@ const Create = () => {
     <>
       <h2>Create Todo</h2>
       <Input id="newTodoTitle" placeholder="title" {...inputTitle} />
-      <Input id="newTodoContent" placeholder="content" {...inputContent} />
+      <Input
+        id="newTodoContent"
+        placeholder="content"
+        textarea
+        {...inputContent}
+      />
       <button onClick={handleCreate}>ok</button>
       <button onClick={handleReset}>resest</button>
     </>

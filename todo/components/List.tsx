@@ -98,6 +98,7 @@ S.Todo = styled.div`
 
 S.Title = styled.p`
   width: 8rem;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `;

@@ -10,6 +10,7 @@ interface inputType {
   id?: string;
   placeholder?: string;
   labelName?: string;
+  textarea?: boolean;
 }
 
 const Input = (inputProps: inputType) => {
@@ -22,7 +23,11 @@ const Input = (inputProps: inputType) => {
   return (
     <>
       <S.Label htmlFor={id}>{labelName}</S.Label>
-      <S.Input id={id} placeholder={placeholder} {...props} />
+      {inputProps.textarea ? (
+        <S.Textarea id={id} placeholder={placeholder} {...props} />
+      ) : (
+        <S.Input id={id} placeholder={placeholder} {...props} />
+      )}
     </>
   );
 };
@@ -39,6 +44,11 @@ S.Label = styled.label`
 `;
 
 S.Input = styled.input`
+  display: block;
+  margin-bottom: 1rem;
+`;
+
+S.Textarea = styled.textarea`
   display: block;
   margin-bottom: 1rem;
 `;

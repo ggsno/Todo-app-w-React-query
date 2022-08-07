@@ -14,6 +14,12 @@ const Details = () => {
   const inputContent = useInput("");
   const navigate = useNavigate();
 
+  const handleEditMode = () => {
+    setEditMode(true);
+    inputTitle.setValue(selectedTodo.title);
+    inputContent.setValue(selectedTodo.content);
+  };
+
   const handleEdit = async (e: any) => {
     try {
       e.preventDefault();
@@ -33,6 +39,7 @@ const Details = () => {
       setSelectedTodo(data);
       inputTitle.setValue("");
       inputContent.setValue("");
+      setEditMode(false);
     } catch {
       navigate("/login");
     }
@@ -79,7 +86,7 @@ const Details = () => {
           <p>{selectedTodo.createdAt}</p>
           <h3>updated at</h3>
           <p>{selectedTodo.updatedAt}</p>
-          <button onClick={() => setEditMode(true)}>edit</button>
+          <button onClick={handleEditMode}>edit</button>
         </>
       ) : (
         <>
@@ -93,6 +100,7 @@ const Details = () => {
             id="editContent"
             labelName="content"
             placeholder={selectedTodo.content}
+            textarea
             {...inputContent}
           />
           <h3>created at</h3>
