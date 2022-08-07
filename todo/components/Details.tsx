@@ -55,16 +55,20 @@ const Details = () => {
     (async () => {
       try {
         checkToken();
-        if (searchParams.get("id")) {
+        if (
+          searchParams.get("id") &&
+          todos.some(({ id }) => id === searchParams.get("id"))
+        ) {
           const data = await fetchGetTodoById(
             localStorage.getItem("token")!,
             searchParams.get("id")!
           );
           setSelectedTodo(data);
+          setEditMode(false);
+        } else {
+          setSearchParams({});
+          setSelectedTodo(null);
         }
-        setEditMode(false);
-        inputTitle.setValue("");
-        inputContent.setValue("");
       } catch {
         navigate("/login");
       }
