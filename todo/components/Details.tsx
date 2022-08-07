@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { fetchGetTodoById, fetchUpdateTodo } from "../../api/todoAPI";
+import { useNavigate } from "react-router-dom";
+import { fetchUpdateTodo } from "../../api/todoAPI";
 import checkToken from "../../utils/checkToken";
 import { useTodoContext } from "../useTodoContext";
 import Input from "../../common/Input";
@@ -43,6 +43,9 @@ const Details = () => {
       navigate("/login");
     }
   };
+  useEffect(() => {
+    setEditMode(false);
+  }, [selectedTodo]);
 
   const handleCancel = () => {
     setEditMode(false);

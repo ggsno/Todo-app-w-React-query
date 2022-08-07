@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  fetchDeleteTodo,
-  fetchGetTodoById,
-  fetchGetTodos
-} from "../api/todoAPI";
+import { fetchGetTodoById, fetchGetTodos } from "../api/todoAPI";
 import { useNavigate } from "react-router";
 import { Todo as TodoType } from "../types/todo";
 import styled from "styled-components";

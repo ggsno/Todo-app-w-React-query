@@ -1,9 +1,5 @@
-import React, { useEffect } from "react";
-import {
-  fetchDeleteTodo,
-  fetchGetTodoById,
-  fetchGetTodos
-} from "../../api/todoAPI";
+import React from "react";
+import { fetchDeleteTodo, fetchGetTodoById } from "../../api/todoAPI";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import checkToken from "../../utils/checkToken";
