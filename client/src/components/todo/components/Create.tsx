@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchCreateTodo } from "../../api/todoAPI";
+import { fetchCreateTodo } from "../../../api/todoAPI";
 import Input from "../../common/Input";
-import useInput from "../../hooks/useInput";
-import checkToken from "../../utils/checkToken";
-import { useTodoContext } from "../useTodoContext";
+import useInput from "../../../hooks/useInput";
+import checkToken from "../../../utils/checkToken";
+import { useTodoContext } from "../../../contexts/useTodoContext";
 
 const Create = () => {
   const inputTitle = useInput("");
@@ -26,7 +26,7 @@ const Create = () => {
         localStorage.getItem("token")!,
         JSON.stringify({
           title: inputTitle.value,
-          content: inputContent.value
+          content: inputContent.value,
         })
       );
       if (!data) throw Error;

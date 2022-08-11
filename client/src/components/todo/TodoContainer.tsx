@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { fetchGetTodoById, fetchGetTodos } from "../api/todoAPI";
+import { fetchGetTodoById, fetchGetTodos } from "../../api/todoAPI";
 import { useNavigate } from "react-router";
-import { Todo as TodoType } from "../types/todo";
+import { Todo as TodoType } from "../../types/todo";
 import styled from "styled-components";
 import { useSearchParams } from "react-router-dom";
-import { TodoProvider } from "./useTodoContext";
+import { TodoProvider } from "../../contexts/useTodoContext";
 import { List, Details, Create } from "./components";
-import checkToken from "../utils/checkToken";
+import checkToken from "../../utils/checkToken";
 
-const Todo = ({ children }: { children: any }) => {
+const TodoContainer = ({ children }: { children: any }) => {
   const [todos, setTodos] = useState<TodoType[]>([]);
   const [selectedTodo, setSelectedTodo] = useState<TodoType | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
 
   useEffect(() => {
     (async () => {
@@ -52,7 +47,7 @@ const Todo = ({ children }: { children: any }) => {
         todos,
         setTodos,
         selectedTodo,
-        setSelectedTodo
+        setSelectedTodo,
       }}
     >
       <h1>Todo App</h1>
@@ -61,7 +56,6 @@ const Todo = ({ children }: { children: any }) => {
           <S.Wrapper>{e}</S.Wrapper>
         ))}
       </S.Container>
-      <button onClick={handleLogout}>logout</button>
     </TodoProvider>
   );
 };
@@ -80,8 +74,8 @@ S.Wrapper = styled.section`
   }
 `;
 
-Todo.List = List;
-Todo.Details = Details;
-Todo.Create = Create;
+TodoContainer.List = List;
+TodoContainer.Details = Details;
+TodoContainer.Create = Create;
 
-export default Todo;
+export default TodoContainer;

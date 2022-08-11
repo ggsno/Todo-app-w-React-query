@@ -1,7 +1,7 @@
 import { UserInput } from "../types/auth";
 import { AuthApi } from "../types/api";
 
-const request = async ({ email, password, query }: AuthApi) => {
+const commonRequest = async ({ email, password, query }: AuthApi) => {
   try {
     const response = await fetch(`http://localhost:8080/users/${query}`, {
       method: "POST",
@@ -29,11 +29,11 @@ const request = async ({ email, password, query }: AuthApi) => {
 };
 
 const fetchLogin = (props: UserInput) => {
-  return request({ ...props, query: "login" });
+  return commonRequest({ ...props, query: "login" });
 };
 
 const fetchSignUp = (props: UserInput) => {
-  return request({ ...props, query: "create" });
+  return commonRequest({ ...props, query: "create" });
 };
 
 export { fetchLogin, fetchSignUp };

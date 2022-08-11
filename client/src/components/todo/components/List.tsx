@@ -1,9 +1,9 @@
 import React from "react";
-import { fetchDeleteTodo, fetchGetTodoById } from "../../api/todoAPI";
+import { fetchDeleteTodo, fetchGetTodoById } from "../../../api/todoAPI";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
-import checkToken from "../../utils/checkToken";
-import { useTodoContext } from "../useTodoContext";
+import checkToken from "../../../utils/checkToken";
+import { useTodoContext } from "../../../contexts/useTodoContext";
 import { useSearchParams } from "react-router-dom";
 
 const List = () => {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchUpdateTodo } from "../../api/todoAPI";
-import checkToken from "../../utils/checkToken";
-import { useTodoContext } from "../useTodoContext";
+import { fetchUpdateTodo } from "../../../api/todoAPI";
+import checkToken from "../../../utils/checkToken";
+import { useTodoContext } from "../../../contexts/useTodoContext";
 import Input from "../../common/Input";
-import useInput from "../../hooks/useInput";
+import useInput from "../../../hooks/useInput";
 
 const Details = () => {
   const { selectedTodo, setSelectedTodo, todos, setTodos } = useTodoContext();
@@ -27,7 +27,7 @@ const Details = () => {
         localStorage.getItem("token")!,
         JSON.stringify({
           title: inputTitle.value,
-          content: inputContent.value
+          content: inputContent.value,
         }),
         selectedTodo.id
       );
