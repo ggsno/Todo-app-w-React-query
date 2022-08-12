@@ -1,5 +1,3 @@
-import { ChangeEvent, FormEvent } from "react";
-
 export interface User {
   id: string;
   email: string;
