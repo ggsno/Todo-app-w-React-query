@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { fetchUpdateTodo } from "../../../api/todoAPI";
-import checkToken from "../../../utils/checkToken";
-import { useTodoContext } from "../../../contexts/useTodoContext";
+import { useSearchParams } from "react-router-dom";
 import Input from "../../common/Input";
 import useInput from "../../../hooks/useInput";
+import useTodo from "../../../services/todo/useTodo";
 
 const Details = () => {
-  const { selectedTodo, setSelectedTodo, todos, setTodos } = useTodoContext();
+  const { getTodoById, updateTodo } = useTodo();
   const [editMode, setEditMode] = useState(false);
+  const [searchParams] = useSearchParams();
   const inputTitle = useInput("");
   const inputContent = useInput("");
-  const navigate = useNavigate();
+  const [id, setId] = useState("");
+
+  const { data, isError } = getTodoById(id);
+  // console.log(res.data);
+  const selectedTodo = !isError && id !== "" ? data?.data.data : null;
 
   const handleEditMode = () => {
     setEditMode(true);
@@ -20,38 +23,27 @@ const Details = () => {
   };
 
   const handleEdit = async (e: any) => {
-    try {
-      e.preventDefault();
-      checkToken();
-      const data = await fetchUpdateTodo(
-        localStorage.getItem("token")!,
-        JSON.stringify({
-          title: inputTitle.value,
-          content: inputContent.value,
-        }),
-        selectedTodo.id
-      );
-      if (!data) throw Error;
-      setTodos(
-        todos.map((item: any) => (item.id !== selectedTodo.id ? item : data))
-      );
-      setSelectedTodo(data);
-      inputTitle.setValue("");
-      inputContent.setValue("");
-      setEditMode(false);
-    } catch {
-      navigate("/login");
-    }
-  };
-  useEffect(() => {
+    e.preventDefault();
+    console.log(inputTitle.value);
+    updateTodo({
+      id,
+      props: { title: inputTitle.value, content: inputContent.value },
+    });
+    inputTitle.setValue("");
+    inputContent.setValue("");
     setEditMode(false);
-  }, [selectedTodo]);
+  };
 
   const handleCancel = () => {
     setEditMode(false);
     inputTitle.setValue("");
     inputContent.setValue("");
   };
+
+  useEffect(() => {
+    setId(searchParams.get("id") || "");
+    setEditMode(false);
+  }, [searchParams]);
 
   return (
     <>

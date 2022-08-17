@@ -5,11 +5,7 @@ import TodoContainer from "../components/todo/TodoContainer";
 const TodoPage = () => {
   return (
     <>
-      <TodoContainer>
-        <TodoContainer.List />
-        <TodoContainer.Details />
-        <TodoContainer.Create />
-      </TodoContainer>
+      <TodoContainer />
       <Link to={"/logout"}>Logout</Link>
     </>
   );

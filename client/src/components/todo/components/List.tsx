@@ -1,50 +1,29 @@
 import React from "react";
-import { fetchDeleteTodo, fetchGetTodoById } from "../../../api/todoAPI";
-import { useNavigate } from "react-router";
-import styled from "styled-components";
-import checkToken from "../../../utils/checkToken";
-import { useTodoContext } from "../../../contexts/useTodoContext";
 import { useSearchParams } from "react-router-dom";
+import styled from "styled-components";
+import useTodo from "../../../services/todo/useTodo";
 
 const List = () => {
-  const { todos, setTodos, selectedTodo, setSelectedTodo } = useTodoContext();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const { todos, isLoading, deleteTodo } = useTodo();
+  const [, setSearchParams] = useSearchParams();
 
   const handleDelete = async (e: any) => {
-    try {
-      e.preventDefault();
-      const id = e.target.value;
-      checkToken();
-      await fetchDeleteTodo(localStorage.getItem("token")!, id);
-      setTodos(todos.filter((todo: any) => todo.id !== id));
-      if (selectedTodo && selectedTodo!.id === id) {
-        setSelectedTodo(null);
-        setSearchParams({});
-      }
-    } catch (e) {
-      console.log(e);
-      navigate("/login");
-    }
+    e.preventDefault();
+    const id = e.target.value;
+    deleteTodo(id);
+    setSearchParams({});
   };
 
   const handleDetail = async (e: any) => {
-    try {
-      e.preventDefault();
-      const id = e.target.id;
-      checkToken();
-      const data = await fetchGetTodoById(localStorage.getItem("token")!, id);
-      setSelectedTodo(data);
-      navigate({ pathname: "/", search: `?id=${id}` });
-    } catch {
-      navigate("/login");
-    }
+    e.preventDefault();
+    const id = e.target.id;
+    setSearchParams({ id });
   };
 
   return (
     <>
       <h2>Todo List</h2>
-      {todos.length === 0 ? (
+      {isLoading ? null : todos?.length === 0 ? (
         <p>All Tasks Complete !</p>
       ) : (
         todos.map(({ title, id }: any) => (

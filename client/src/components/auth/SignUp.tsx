@@ -1,34 +1,23 @@
 import React from "react";
 import { FormEvent, useEffect, useState } from "react";
 import { AuthInput } from "../../types/auth";
-import { fetchSignUp } from "../../api/authAPI";
-import { useNavigate } from "react-router";
 import useInput from "../../hooks/useInput";
 import Input from "../../components/common/Input";
+import useAuth from "../../services/auth/useAuth";
 
 const SignUp = () => {
-  const navigate = useNavigate();
-
   const [valid, setValid] = useState(false);
-
   const inputEmail = useInput("");
   const inputPassword = useInput("");
   const inputPasswordCheck = useInput("");
+  const { signup } = useAuth();
 
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      if (
-        await fetchSignUp({
-          email: inputEmail.value,
-          password: inputPassword.value,
-        })
-      )
-        navigate("/");
-      else throw Error;
-    } catch {
-      // fail login ui
-    }
+    signup({
+      email: inputEmail.value,
+      password: inputPassword.value,
+    });
   };
 
   const checkValid = ({ email, password, passwordCheck }: AuthInput) => {
@@ -51,6 +40,7 @@ const SignUp = () => {
       ),
     [inputEmail.value, inputPassword.value]
   );
+
   return (
     <>
       <h1>Sign Up</h1>

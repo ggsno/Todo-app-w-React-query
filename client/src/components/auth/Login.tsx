@@ -1,32 +1,21 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import Input from "../common/Input";
-import { useNavigate } from "react-router-dom";
-import { fetchLogin } from "../../api/authAPI";
 import useInput from "../../hooks/useInput";
 import { AuthInput } from "../../types/auth";
+import useAuth from "../../services/auth/useAuth";
 
 const Login = () => {
-  const navigate = useNavigate();
-
   const [isValid, setIsValid] = useState(false);
-
   const inputEmail = useInput("");
   const inputPassword = useInput("");
+  const { login } = useAuth();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      if (
-        await fetchLogin({
-          email: inputEmail.value,
-          password: inputPassword.value,
-        })
-      )
-        navigate("/");
-      else throw Error;
-    } catch {
-      // fail login ui
-    }
+    login({
+      email: inputEmail.value,
+      password: inputPassword.value,
+    });
   };
 
   const checkValid = ({ email, password }: AuthInput) => {
