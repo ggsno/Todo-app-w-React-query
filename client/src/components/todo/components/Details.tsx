@@ -6,14 +6,17 @@ import useTodoQuery from "../../../services/hooks/useTodoQuery";
 
 const Details = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [id, setId] = useState("");
-  const { data: todo, isError, updateTodo } = useTodoQuery(id);
   const [editMode, setEditMode] = useState(false);
-  const inputTitle = useInput("");
-  const inputContent = useInput("");
+  const [id, setId] = useState("");
+
+  const { data: todo, isError, updateTodo } = useTodoQuery(id);
+
   const selectedTodo = isError || id === "" ? null : todo;
 
-  if (isError) setSearchParams("");
+  const inputTitle = useInput("");
+  const inputContent = useInput("");
+
+  if (isError) setSearchParams({});
 
   const handleEditMode = () => {
     setEditMode(true);

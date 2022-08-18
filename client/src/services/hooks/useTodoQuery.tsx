@@ -10,6 +10,7 @@ import { todoCache } from "../../model/todo";
 
 const useTodoQuery = (id?: string) => {
   const queryClient = useQueryClient();
+
   const { data, ...queryResult } = id
     ? useQuery([todoCache.getTodoById(id), id], () => fetchGetTodoById(id))
     : useQuery([todoCache.getTodos], fetchGetTodos);

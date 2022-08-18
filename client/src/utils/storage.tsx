@@ -1,8 +1,12 @@
+interface props {
+  key: string;
+}
+
 const storage = {
-  get: ({ key }: { key: string }) => localStorage.getItem(key),
-  set: ({ key, value }: { key: string; value: string }) =>
+  get: ({ key }: props) => localStorage.getItem(key),
+  set: ({ key, value }: props & { value: string }) =>
     localStorage.setItem(key, value),
-  remove: ({ key }: { key: string }) => localStorage.removeItem(key),
+  remove: ({ key }: props) => localStorage.removeItem(key),
 };
 
 export default storage;

@@ -5,6 +5,7 @@ import useTodoQuery from "../../../services/hooks/useTodoQuery";
 
 const Create = () => {
   const { createTodo } = useTodoQuery();
+
   const inputTitle = useInput("");
   const inputContent = useInput("");
 

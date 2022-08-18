@@ -1,14 +1,16 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import Input from "../common/Input";
-import useInput from "../../hooks/useInput";
-import { AuthInput } from "../../model/auth";
 import useAuthQuery from "../../services/hooks/useAuthQuery";
+import { AuthInput } from "../../model/auth";
+import useInput from "../../hooks/useInput";
+import Input from "../common/Input";
 
 const Login = () => {
+  const { login } = useAuthQuery();
+
   const [isValid, setIsValid] = useState(false);
+
   const inputEmail = useInput("");
   const inputPassword = useInput("");
-  const { login } = useAuthQuery();
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 import { List, Details, Create } from "./components";
+import styled from "styled-components";
 
 const TodoContainer = () => {
   return (

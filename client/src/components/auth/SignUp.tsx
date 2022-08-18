@@ -1,16 +1,17 @@
-import React from "react";
-import { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
+import useAuthQuery from "../../services/hooks/useAuthQuery";
 import { AuthInput } from "../../model/auth";
 import useInput from "../../hooks/useInput";
 import Input from "../../components/common/Input";
-import useAuthQuery from "../../services/hooks/useAuthQuery";
 
 const SignUp = () => {
-  const [valid, setValid] = useState(false);
+  const { signup } = useAuthQuery();
+
+  const [isValid, setIsValid] = useState(false);
+
   const inputEmail = useInput("");
   const inputPassword = useInput("");
   const inputPasswordCheck = useInput("");
-  const { signup } = useAuthQuery();
 
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ const SignUp = () => {
 
   useEffect(
     () =>
-      setValid(
+      setIsValid(
         checkValid({
           email: inputEmail.value,
           password: inputPassword.value,
@@ -54,7 +55,7 @@ const SignUp = () => {
           {...inputPasswordCheck}
           required
         />
-        <button type="submit" disabled={!valid}>
+        <button type="submit" disabled={!isValid}>
           Sign Up
         </button>
       </form>
