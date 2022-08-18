@@ -1,6 +1,6 @@
 import React from "react";
 import { FormEvent, useEffect, useState } from "react";
-import { AuthInput } from "../../types/auth";
+import { AuthInput } from "../../model/auth";
 import useInput from "../../hooks/useInput";
 import Input from "../../components/common/Input";
 import useAuthQuery from "../../services/hooks/useAuthQuery";

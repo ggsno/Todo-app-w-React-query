@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import Input from "../common/Input";
 import useInput from "../../hooks/useInput";
-import { AuthInput } from "../../types/auth";
+import { AuthInput } from "../../model/auth";
 import useAuthQuery from "../../services/hooks/useAuthQuery";
 
 const Login = () => {

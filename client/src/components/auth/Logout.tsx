@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import storage from "../../services/storage";
+import storage from "../../utils/storage";
 
 const Logout = () => {
   const navigate = useNavigate();

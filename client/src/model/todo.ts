@@ -8,7 +8,9 @@ export interface Todo {
 
 export type TodoInput = Pick<Todo, "title" | "content">;
 
-export type TodoContextType = {
-  selectedTodoId: string;
-  setSelectedTodoId: React.Dispatch<React.SetStateAction<string>>;
+const TODO_KEY = "todo";
+
+export const todoCache = {
+  getTodos: TODO_KEY,
+  getTodoById: (id: string) => TODO_KEY + id,
 };

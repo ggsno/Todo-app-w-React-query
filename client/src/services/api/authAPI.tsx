@@ -1,6 +1,6 @@
-import { UserInput } from "../../types/auth";
+import { UserInput } from "../../model/auth";
 import axios from "axios";
-import storage from "../storage";
+import storage from "../../utils/storage";
 
 const instance = axios.create({
   baseURL: "http://localhost:8080/users",
