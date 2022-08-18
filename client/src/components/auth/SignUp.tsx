@@ -3,14 +3,14 @@ import { FormEvent, useEffect, useState } from "react";
 import { AuthInput } from "../../types/auth";
 import useInput from "../../hooks/useInput";
 import Input from "../../components/common/Input";
-import useAuth from "../../services/auth/useAuth";
+import useAuthQuery from "../../services/hooks/useAuthQuery";
 
 const SignUp = () => {
   const [valid, setValid] = useState(false);
   const inputEmail = useInput("");
   const inputPassword = useInput("");
   const inputPasswordCheck = useInput("");
-  const { signup } = useAuth();
+  const { signup } = useAuthQuery();
 
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

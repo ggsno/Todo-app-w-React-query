@@ -1,29 +1,26 @@
 import React from "react";
 import Input from "../../common/Input";
 import useInput from "../../../hooks/useInput";
-import useTodo from "../../../services/todo/useTodo";
+import useTodoQuery from "../../../services/hooks/useTodoQuery";
 
 const Create = () => {
-  const { createTodo } = useTodo();
+  const { createTodo } = useTodoQuery();
   const inputTitle = useInput("");
   const inputContent = useInput("");
 
-  const handleCreate = async (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault();
+  const handleCreate = async () => {
     if (!inputTitle.value || !inputContent.value) {
       alert("Empty title or content");
       return;
     }
     createTodo({ title: inputTitle.value, content: inputContent.value });
-    inputTitle.setValue("");
-    inputContent.setValue("");
+    inputTitle.reset();
+    inputContent.reset();
   };
 
   const handleReset = () => {
-    inputTitle.setValue("");
-    inputContent.setValue("");
+    inputTitle.reset();
+    inputContent.reset();
   };
 
   return (

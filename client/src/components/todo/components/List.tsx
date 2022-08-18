@@ -1,22 +1,20 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
+
 import styled from "styled-components";
-import useTodo from "../../../services/todo/useTodo";
+import useTodoQuery from "../../../services/hooks/useTodoQuery";
 
 const List = () => {
-  const { todos, isLoading, deleteTodo } = useTodo();
-  const [, setSearchParams] = useSearchParams();
+  const { data: todos, isLoading, deleteTodo } = useTodoQuery();
 
-  const handleDelete = async (e: any) => {
-    e.preventDefault();
-    const id = e.target.value;
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleDelete = async (id: string) => {
     deleteTodo(id);
-    setSearchParams({});
+    if (searchParams.get("id") === id) setSearchParams({});
   };
 
-  const handleDetail = async (e: any) => {
-    e.preventDefault();
-    const id = e.target.id;
+  const handleDetail = async (id: string) => {
     setSearchParams({ id });
   };
 
@@ -28,12 +26,8 @@ const List = () => {
       ) : (
         todos.map(({ title, id }: any) => (
           <S.Todo key={id}>
-            <S.Title id={id} onClick={handleDetail}>
-              {title}
-            </S.Title>
-            <button onClick={handleDelete} value={id}>
-              delete
-            </button>
+            <S.Title onClick={() => handleDetail(id)}>{title}</S.Title>
+            <button onClick={() => handleDelete(id)}>delete</button>
           </S.Todo>
         ))
       )}

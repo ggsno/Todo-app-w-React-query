@@ -5,15 +5,13 @@ import {
   fetchGetTodoById,
   fetchGetTodos,
   fetchUpdateTodo,
-} from "./todoAPI";
+} from "../api/todoAPI";
 
-const useTodo = () => {
+const useTodoQuery = (id?: string) => {
   const queryClient = useQueryClient();
-
-  const { data, ...queryResult } = useQuery(["getTodos"], fetchGetTodos);
-
-  const getTodoById = (id: string) =>
-    useQuery(["getTodoById", id], () => fetchGetTodoById(id));
+  const { data, ...queryResult } = id
+    ? useQuery(["getTodoById", id], () => fetchGetTodoById(id))
+    : useQuery(["getTodos"], fetchGetTodos);
 
   const createTodo = useMutation(fetchCreateTodo, {
     onSuccess: () => {
@@ -24,6 +22,7 @@ const useTodo = () => {
   const updateTodo = useMutation(fetchUpdateTodo, {
     onSuccess: () => {
       queryClient.invalidateQueries(["getTodos"]);
+      queryClient.invalidateQueries(["getTodoById"]);
     },
   }).mutate;
 
@@ -35,12 +34,11 @@ const useTodo = () => {
 
   return {
     ...queryResult,
-    todos: data?.data.data,
-    getTodoById,
+    data: data?.data.data,
     createTodo,
     updateTodo,
     deleteTodo,
   };
 };
 
-export default useTodo;
+export default useTodoQuery;

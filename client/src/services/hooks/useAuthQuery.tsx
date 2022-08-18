@@ -1,13 +1,17 @@
 import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
-import { fetchLogin, fetchSignUp } from "./authAPI";
+import { fetchLogin, fetchSignUp } from "../api/authAPI";
 
-const useAuth = () => {
+const useAuthQuery = () => {
   const navigate = useNavigate();
 
   const login = useMutation(fetchLogin, {
     onSuccess: () => {
       navigate("/");
+    },
+    onError: (error) => {
+      if (error instanceof AxiosError) alert(error.response?.data.details);
     },
   }).mutate;
 
@@ -15,9 +19,12 @@ const useAuth = () => {
     onSuccess: () => {
       navigate("/");
     },
+    onError: (error) => {
+      if (error instanceof AxiosError) alert(error.response?.data.details);
+    },
   }).mutate;
 
   return { login, signup };
 };
 
-export default useAuth;
+export default useAuthQuery;

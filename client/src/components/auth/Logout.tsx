@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import storage from "../../services/storage";
 
 const Logout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    localStorage.removeItem("token");
+    storage.remove({ key: "token" });
     navigate("/login");
   });
 

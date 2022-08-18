@@ -2,19 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Input from "../../common/Input";
 import useInput from "../../../hooks/useInput";
-import useTodo from "../../../services/todo/useTodo";
+import useTodoQuery from "../../../services/hooks/useTodoQuery";
 
 const Details = () => {
-  const { getTodoById, updateTodo } = useTodo();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [id, setId] = useState("");
+  const { data: todo, isError, updateTodo } = useTodoQuery(id);
   const [editMode, setEditMode] = useState(false);
-  const [searchParams] = useSearchParams();
   const inputTitle = useInput("");
   const inputContent = useInput("");
-  const [id, setId] = useState("");
+  const selectedTodo = isError || id === "" ? null : todo;
 
-  const { data, isError } = getTodoById(id);
-  // console.log(res.data);
-  const selectedTodo = !isError && id !== "" ? data?.data.data : null;
+  if (isError) setSearchParams("");
 
   const handleEditMode = () => {
     setEditMode(true);
@@ -22,22 +21,16 @@ const Details = () => {
     inputContent.setValue(selectedTodo.content);
   };
 
-  const handleEdit = async (e: any) => {
-    e.preventDefault();
-    console.log(inputTitle.value);
+  const handleEdit = async () => {
     updateTodo({
       id,
       props: { title: inputTitle.value, content: inputContent.value },
     });
-    inputTitle.setValue("");
-    inputContent.setValue("");
     setEditMode(false);
   };
 
   const handleCancel = () => {
     setEditMode(false);
-    inputTitle.setValue("");
-    inputContent.setValue("");
   };
 
   useEffect(() => {
@@ -64,16 +57,10 @@ const Details = () => {
         </>
       ) : (
         <>
-          <Input
-            id="editTitle"
-            labelName="title"
-            placeholder={selectedTodo.title}
-            {...inputTitle}
-          />
+          <Input id="editTitle" labelName="title" {...inputTitle} />
           <Input
             id="editContent"
             labelName="content"
-            placeholder={selectedTodo.content}
             textarea
             {...inputContent}
           />

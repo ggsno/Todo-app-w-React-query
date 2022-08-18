@@ -25,9 +25,12 @@ const S: any = {};
 
 S.Container = styled.article`
   display: flex;
+  max-width: 50rem;
 `;
 
 S.Wrapper = styled.section`
+  width: 30%;
+  overflow-wrap: break-word;
   border-right: 1px solid black;
   padding: 30px;
   &:last-child {
