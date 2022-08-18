@@ -25,7 +25,7 @@ const SignUp = () => {
       /@/.test(email) &&
       /\./.test(email) &&
       8 <= password.length &&
-      (passwordCheck ? password === passwordCheck : true)
+      password === passwordCheck
     );
   };
 
@@ -38,7 +38,7 @@ const SignUp = () => {
           passwordCheck: inputPasswordCheck.value,
         })
       ),
-    [inputEmail.value, inputPassword.value]
+    [inputEmail, inputPassword, inputPasswordCheck]
   );
 
   return (

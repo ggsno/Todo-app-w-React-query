@@ -30,7 +30,7 @@ const Login = () => {
           password: inputPassword.value,
         })
       ),
-    [inputEmail.value, inputPassword.value]
+    [inputEmail, inputPassword]
   );
 
   return (
