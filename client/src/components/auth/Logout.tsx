@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import path from "../../router/routerPath";
 import storage from "../../utils/storage";
 
 const Logout = () => {
@@ -7,7 +8,7 @@ const Logout = () => {
 
   useEffect(() => {
     storage.remove({ key: "token" });
-    navigate("/login");
+    navigate(path.LOGIN);
   });
 
   return <></>;

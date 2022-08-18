@@ -8,17 +8,21 @@ import {
 } from "../pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import path from "./routerPath";
 
 const Router = () => (
   <>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<PrivateRoute />}>
-          <Route path="/" element={<TodoPage />} />
+        <Route path={path.TODO} element={<PrivateRoute />}>
+          <Route path={path.TODO} element={<TodoPage />} />
         </Route>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/logout" element={<LogoutPage />} />
+        <Route path={path.AUTH}>
+          <Route path={path.LOGIN} element={<LoginPage />} />
+          <Route path={path.SIGNUP} element={<SignUpPage />} />
+          <Route path={path.LOGOUT} element={<LogoutPage />} />
+        </Route>
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
