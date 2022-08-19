@@ -1,12 +1,3 @@
-# wanted-pre-onboarding-challenge-fe-1
-Learning CRUD with React Query
+# client 폴더에 readme가 있습니다
 
-# get started
-## Server
-``` yarn```
-
-``` yarn start```
-## Client
-``` yarn```
-
-``` yarn dev```
+https://github.com/ggsno/wanted-pre-onboarding-challenge-fe-1/tree/master/client
