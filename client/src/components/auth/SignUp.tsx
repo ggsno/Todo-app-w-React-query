@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import useAuthQuery from "../../services/hooks/useAuthQuery";
-import { AuthInput } from "../../model/auth";
+import { SignupInput } from "../../model/auth";
 import useInput from "../../hooks/useInput";
 import Input from "../../components/common/Input";
 
@@ -21,7 +21,7 @@ const SignUp = () => {
     });
   };
 
-  const checkValid = ({ email, password, passwordCheck }: AuthInput) => {
+  const checkValid = ({ email, password, passwordCheck }: SignupInput) => {
     return (
       /@/.test(email) &&
       /\./.test(email) &&

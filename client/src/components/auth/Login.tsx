@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import useAuthQuery from "../../services/hooks/useAuthQuery";
-import { AuthInput } from "../../model/auth";
+import { UserAuthInput } from "../../model/auth";
 import useInput from "../../hooks/useInput";
 import Input from "../common/Input";
 
@@ -20,7 +20,7 @@ const Login = () => {
     });
   };
 
-  const checkValid = ({ email, password }: AuthInput) => {
+  const checkValid = ({ email, password }: UserAuthInput) => {
     return /@/.test(email) && /\./.test(email) && 8 <= password.length;
   };
 

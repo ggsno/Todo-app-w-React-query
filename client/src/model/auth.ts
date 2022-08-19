@@ -5,6 +5,6 @@ export interface User {
   createdAt: string;
 }
 
-export type UserInput = Pick<User, "email" | "password">;
+export type UserAuthInput = Pick<User, "email" | "password">;
 
-export type AuthInput = UserInput & { passwordCheck?: string };
+export type SignupInput = UserAuthInput & { passwordCheck: string };
