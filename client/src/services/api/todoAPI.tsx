@@ -1,6 +1,6 @@
 import axios from "axios";
 import storage from "../../utils/storage";
-import { TodoInput } from "../../model/todo";
+import { TodoInput } from "../model/todo";
 
 const instance = axios.create({
   baseURL: "http://localhost:8080/todos",

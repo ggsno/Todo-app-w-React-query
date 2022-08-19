@@ -6,7 +6,7 @@ import {
   fetchGetTodos,
   fetchUpdateTodo,
 } from "../api/todoAPI";
-import { todoCache } from "../../model/todo";
+import { todoCache } from "../model/todo";
 
 const useTodoQuery = (id?: string) => {
   const queryClient = useQueryClient();
