@@ -3,7 +3,7 @@ import storage from "../utils/storage";
 import { Navigate, Outlet } from "react-router-dom";
 import path from "./routerPath";
 
-const PrivateRoute = () => {
+const AuthRoute = () => {
   return storage.get({ key: "token" }) ? (
     <Outlet />
   ) : (
@@ -11,4 +11,4 @@ const PrivateRoute = () => {
   );
 };
 
-export default PrivateRoute;
+export default AuthRoute;

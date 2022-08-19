@@ -5,7 +5,7 @@ import styled from "styled-components";
 const TodoContainer = () => {
   return (
     <>
-      <h1>Todo App</h1>
+      <h2>Todo App</h2>
       <S.Container>
         <S.Wrapper>
           <List />
@@ -25,11 +25,10 @@ const S: any = {};
 
 S.Container = styled.article`
   display: flex;
-  max-width: 50rem;
 `;
 
 S.Wrapper = styled.section`
-  width: 30%;
+  width: 12rem;
   overflow-wrap: break-word;
   border-right: 1px solid black;
   padding: 30px;

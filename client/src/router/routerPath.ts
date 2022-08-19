@@ -1,9 +1,8 @@
-const AUTH = "/auth";
-const LOGIN = `${AUTH}/login`;
-const LOGOUT = `${AUTH}/logout`;
-const SIGNUP = `${AUTH}/signup`;
+const LOGIN = `/login`;
+const LOGOUT = `/logout`;
+const SIGNUP = `/signup`;
 const TODO = "/";
 
-const path = { AUTH, LOGIN, LOGOUT, SIGNUP, TODO };
+const path = { LOGIN, LOGOUT, SIGNUP, TODO };
 
 export default path;

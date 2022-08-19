@@ -1,13 +1,15 @@
 import React from "react";
 import TodoContainer from "../../components/todo/TodoContainer";
-import { Link } from "react-router-dom";
-import path from "../../router/routerPath";
+import CenterContainer from "../../components/layout/centerContainer";
+import Header from "../../components/layout/Header";
 
 const TodoPage = () => {
   return (
     <>
-      <TodoContainer />
-      <Link to={path.LOGOUT}>Logout</Link>
+      <Header />
+      <CenterContainer>
+        <TodoContainer />
+      </CenterContainer>
     </>
   );
 };

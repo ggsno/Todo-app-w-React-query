@@ -1,14 +1,14 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import useAuthQuery from "../../services/hooks/useAuthQuery";
-import { UserAuthInput } from "../../model/auth";
 import useInput from "../../hooks/useInput";
 import Input from "../common/Input";
+import styled from "styled-components";
 
 const Login = () => {
   const { login } = useAuthQuery();
-
-  const [isValid, setIsValid] = useState(false);
-
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidPassword, setIsValidPassword] = useState(true);
+  const isFirstRender = useRef(true);
   const inputEmail = useInput("");
   const inputPassword = useInput("");
 
@@ -20,28 +20,57 @@ const Login = () => {
     });
   };
 
-  const checkValid = ({ email, password }: UserAuthInput) => {
-    return /@/.test(email) && /\./.test(email) && 8 <= password.length;
+  const checkValidEmail = () => {
+    const email = inputEmail.value;
+    return /@/.test(email) && /\./.test(email);
   };
 
-  useEffect(
-    () =>
-      setIsValid(
-        checkValid({
-          email: inputEmail.value,
-          password: inputPassword.value,
-        })
-      ),
-    [inputEmail, inputPassword]
-  );
+  const checkValidPassword = () => {
+    const password = inputPassword.value;
+    return 8 <= password.length;
+  };
+
+  useEffect(() => {
+    if (isFirstRender.current) return;
+    setIsValidEmail(checkValidEmail());
+  }, [inputEmail.value]);
+
+  useEffect(() => {
+    if (isFirstRender.current) return;
+    setIsValidPassword(checkValidPassword());
+  }, [inputPassword.value]);
+
+  useEffect(() => {
+    isFirstRender.current = false;
+  }, []);
 
   return (
     <>
-      <h1>Login</h1>
+      <h2>Login</h2>
       <form name="login" onSubmit={handleLogin}>
-        <Input type="email" {...inputEmail} required />
-        <Input type="password" {...inputPassword} required />
-        <button type="submit" disabled={!isValid}>
+        <S.Input
+          type="email"
+          {...inputEmail}
+          isValid={isValidEmail}
+          invalidMessage="@와 .를 포함한 이메일을 입력해주세요"
+          required
+        />
+        <S.Input
+          type="password"
+          {...inputPassword}
+          isValid={isValidPassword}
+          invalidMessage="8자 이상의 비밀번호를 입력해주세요"
+          required
+        />
+        <button
+          type="submit"
+          disabled={
+            !inputEmail.value ||
+            !inputPassword.value ||
+            !isValidEmail ||
+            !isValidPassword
+          }
+        >
           Login
         </button>
       </form>
@@ -50,3 +79,9 @@ const Login = () => {
 };
 
 export default Login;
+
+const S: any = {};
+
+S.Input = styled(Input)`
+  margin-bottom: 1rem;
+`;
