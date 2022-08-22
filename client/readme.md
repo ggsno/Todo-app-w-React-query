@@ -1,7 +1,7 @@
 # Todo app
 
 - 원티드 프리온보딩 챌린지 프론트엔드 코스 사전과제
-- 리팩터링 기록 : https://fffo.tistory.com/tag/CRUD%20w%20ReactQuery
+- 리팩터링 기록 : https://ggsno.tistory.com/tag/CRUD%20w%20ReactQuery
 - 사용 기술 : <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black"/> <img src="https://img.shields.io/badge/Typescript-3178C6?style=flat&logo=typescript&logoColor=white"/> <img src="https://img.shields.io/badge/ReactQuery-FF4154?style=flat&logo=reactquery&logoColor=white"/> <img src="https://img.shields.io/badge/ReactRouter-CA4245?style=flat&logo=reactrouter&logoColor=white"/> <img src="https://img.shields.io/badge/StyledComponents-DB7093?style=flat&logo=styledcomponents&logoColor=white"/>
 
 ## 최종 구현 화면
